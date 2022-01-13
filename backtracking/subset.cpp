@@ -83,3 +83,26 @@ public:
         
     }
 };
+ complete iterative 
+ class Solution {
+ 
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>>v={{}};
+        
+        for(int ele:nums)
+        {
+            int s=v.size();
+            for(int i=0;i<s;i++)
+            {
+                v.push_back(v[i]);
+                v.back().push_back(ele);
+            }
+        }
+       
+        return v;
+        
+        
+    }
+};
