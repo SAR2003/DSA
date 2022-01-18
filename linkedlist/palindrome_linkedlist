@@ -1,0 +1,53 @@
+https://leetcode.com/problems/palindrome-linked-list/
+
+time complexity:O(N)
+Space complexity:O(1)
+we use reversing linked list(prev current) and middle node(slow fast) approaches to solve this concept;
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        
+        ListNode* slow=head;
+        ListNode*fast=head;
+        ListNode *prev=NULL;
+        ListNode *current=head;
+        while(fast&&fast->next)   //  middle and also reverse first half linked list in one pass
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+            current->next=prev;
+            prev=current;
+            current=slow;
+            
+        }
+        if(fast) // if fast==null then it is even number linked list otherwise odd linked list
+        {
+            slow=slow->next;
+        }
+        while(slow&&prev) // traversing two middle linked list to check palindrome or not
+        {
+            if(slow->val==prev->val)
+            {
+                slow=slow->next;
+                prev=prev->next;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+        
+        
+    }
+};
